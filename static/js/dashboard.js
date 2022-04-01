@@ -1,3 +1,15 @@
+function loadResult(bookIsbn) { 
+  //const testa = document.getElementById("search-box").value; 
+  const dict_values = {bookIsbn}; 
+  const s = JSON.stringify(dict_values); 
+  $.ajax({ 
+    url:"/test", 
+    type:"POST", 
+    contentType: "application/json", 
+    data: JSON.stringify(s)
+  }); 
+}
+
 $(document).ready(function() {
   var item, tile, author, publisher, bookLink, bookImg;
   var outputList = document.getElementById("list-output");
@@ -78,14 +90,6 @@ $(document).ready(function() {
         console.log(outputList);
       }
    }
-  function loadResult(bookIsbn) {
-    console.log(bookIsbn)
-  $.ajax({ 
-    url:"/test",    
-    type:"POST", 
-    contentType: "application/json", 
-    data: JSON.stringify(bookIsbn)});
-  }
 
    /*
    * card element formatter using es6 backticks and templates (indivial card)
@@ -107,6 +111,7 @@ $(document).ready(function() {
                <p class="card-text">Author: ${author}</p>
                <p class="card-text">Publisher: ${publisher}</p>
                <a target="_blank" href="${viewUrl}" class="btn btn-secondary">Read Book</a>
+               <a href=javascript:void(0); onclick = "loadResult(${bookIsbn})"> Add to my lectures </a>
              </div>
            </div>
          </div>

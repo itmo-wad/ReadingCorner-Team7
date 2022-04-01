@@ -1,0 +1,9 @@
+:root {
+    --success: #00ff0d;
+    --warning: #fb7100;
+    --error: #ff0000;
+}
+
+.flash-error {color:var(--error);}
+.flash-warning {color:var(--warning);}
+.flash-success {color:var(--success);}

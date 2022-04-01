@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% for sheet in stylesheets %}
+    <link rel="stylesheet" href="{{sheet}}">
+    {% endfor %}
+    <title>register</title>
+</head>
+
+<body>
+    <nav>
+        <label class="logo">Register</label>
+    </nav>
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <p class="flash-{{category}}">{{ message }}</p>
+        {% endfor %}
+        {% endwith %}
+    </div>
+    <form action="/register" method="POST">
+        <div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username">
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password">
+            </div>
+            <div>
+                <input type="submit" value="Register">
+            </div>
+        </div>
+    </form>
+    <a href="/">Back to login</a>
+</body>
+
+</html>

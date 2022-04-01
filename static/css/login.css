@@ -17,10 +17,7 @@ body {
     border: 2mm ridge #077FFF;
 }
 
-.no-border {
-    padding: 0;
-    border: none;
-    background: none;
-    color: #077FFF;
+a.register {
     margin-top: 10px;
+    text-decoration: none;
 }

@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 import json
 import requests
 
+
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/readingcorner"
 mongo = PyMongo(app)
@@ -19,7 +20,10 @@ def dashboard():
 def test(): 
     output = request.get_json()
     result = json.loads(output)
+    userid = request.cookies.get("userID")
+    print(userid)
     print(result)
+<<<<<<< HEAD
     mongo.db.isbn.insert_one({"result":result})
     data = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + str(result['bookIsbn']))
     infos = data.text
@@ -27,4 +31,7 @@ def test():
     infos2 = infos_dict['items'][0]
     #infos2_dict = json.loads(infos2)
     print(infos2['volumeInfo']['title'])
+=======
+    mongo.db.isbn.insert_one({"username":userid,"result":result})
+>>>>>>> f85369c28a6696bae42b06cdcfe541dfbdad6cac
     return result

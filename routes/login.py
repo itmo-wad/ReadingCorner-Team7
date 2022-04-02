@@ -20,7 +20,7 @@ def login():
             if user and check_password_hash(user['password'], password):
                 flash('Logged in successfully.', "success")
                 resp = make_response(redirect('/dashboard'))
-                resp.set_cookie('userID', username)
+                resp.set_cookie('userID', username,httponly=True,secure=True)
                 return resp
             else:
                 flash("Wrong username or password.", "error")

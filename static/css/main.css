@@ -1,5 +1,5 @@
 :root {
-    --success: #00ff0d;
+    --success: #04cc0e;
     --warning: #fb7100;
     --error: #ff0000;
 }
@@ -7,3 +7,11 @@
 .flash-error {color:var(--error);}
 .flash-warning {color:var(--warning);}
 .flash-success {color:var(--success);}
+
+.flash p {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}

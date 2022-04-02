@@ -19,4 +19,4 @@ def register():
         else:
             db.register_user(username, password)
             return redirect('/')
-    return render_template('register.html', stylesheets=["/static/css/main.css"])
+    return render_template('register.html', stylesheets=["https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css","/static/css/register.css", "/static/css/main.css"])

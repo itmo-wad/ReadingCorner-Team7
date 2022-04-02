@@ -10,6 +10,11 @@ function loadResult(bookIsbn) {
   }); 
 }
 
+function readBook(bookIsbn) { 
+  localStorage.setItem("isbn", bookIsbn);
+}
+
+
 $(document).ready(function() {
   var item, tile, author, publisher, bookLink, bookImg;
   var outputList = document.getElementById("list-output");
@@ -81,7 +86,7 @@ $(document).ready(function() {
         bookLink1 = item.volumeInfo.previewLink;
         bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
         bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr ;
-        loadResult(bookLink1);
+        //loadResult(bookLink1);
         // in production code, item.text should have the HTML entities escaped.
         outputList.innerHTML += '<div class="row mt-4">' +
                                 formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn) +
@@ -98,7 +103,8 @@ $(document).ready(function() {
    */
    function formatOutput(bookImg, title, author, publisher, bookLink, bookIsbn) {
      // console.log(title + ""+ author +" "+ publisher +" "+ bookLink+" "+ bookImg)
-     var viewUrl = 'book.html?isbn='+bookIsbn; //constructing link for bookviewer
+     //var viewUrl = 'book.html?isbn='+bookIsbn; //constructing link for bookviewer
+     var viewUrl = 'https://www.googleapis.com/books/v1/volumes?q=""+book.html?isbn:'+bookIsbn; //constructing link for bookviewer
      var htmlCard = `<div class="col-lg-6">
        <div class="card" style="">
          <div class="row no-gutters">
@@ -110,7 +116,7 @@ $(document).ready(function() {
                <h5 class="card-title">${title}</h5>
                <p class="card-text">Author: ${author}</p>
                <p class="card-text">Publisher: ${publisher}</p>
-               <a target="_blank" href="${viewUrl}" class="btn btn-secondary">Read Book</a>
+               <a target="_blank" href=/viewer class="btn btn-secondary" onclick = "readBook(${bookIsbn})">Read Book </a>
                <a href=javascript:void(0); onclick = "loadResult(${bookIsbn})"> Add to my lectures </a>
              </div>
            </div>
@@ -123,6 +129,6 @@ $(document).ready(function() {
    function displayError() {
      alert("search term can not be empty!")
    }
-
-
+//<a target="_blank" href=/viewer class="btn btn-secondary" data-isbn='${bookIsbn}'>Read Book </a>
+// <a target="_blank" href=javascript:void(0); class="btn btn-secondary" onclick = "readBook(${bookIsbn})">Read Book </a>
 });

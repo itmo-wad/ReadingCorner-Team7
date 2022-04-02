@@ -124,3 +124,8 @@ div.search-bar::after {
 .custom-button a {
     text-decoration: none;
 }
+
+.row img{
+    width:200px;
+    height:200px;
+}

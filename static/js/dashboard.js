@@ -81,7 +81,7 @@ $(document).ready(function() {
         bookLink1 = item.volumeInfo.previewLink;
         bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
         bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr ;
-        loadResult(bookLink1);
+        //loadResult(bookLink1);
         // in production code, item.text should have the HTML entities escaped.
         outputList.innerHTML += '<div class="row mt-4">' +
                                 formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn) +

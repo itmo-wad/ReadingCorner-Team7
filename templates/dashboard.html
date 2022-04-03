@@ -35,9 +35,10 @@
     <div id="list-output" class="">
       <div class="row books">
         {% for image in thumbnailBooks %}
-        <img src="{{image}}">
+        <img src="{{image[0]}}">
         <form action="/remove" method="POST">
-          <input type="submit" value="Remove from by bookshelf">
+          <input type="hidden" name="isbn" value={{image[1]}}>
+          <input type="submit"  value="Remove from by bookshelf">
         </form>
         {% endfor %}
         <!-- card  -->

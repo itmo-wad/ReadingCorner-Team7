@@ -36,7 +36,9 @@
       <div class="row">
         {% for image in thumbnailBooks %}
         <img src="{{image}}">
-
+        <form action="/remove" method="POST">
+          <input type="submit" value="Remove from by bookshelf">
+        </form>
         {% endfor %}
         <!-- card  -->
 

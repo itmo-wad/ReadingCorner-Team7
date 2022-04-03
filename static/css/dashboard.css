@@ -128,4 +128,6 @@ div.search-bar::after {
 .row img{
     width:200px;
     height:200px;
+    margin: 30px;
 }
+

@@ -12,7 +12,7 @@ mongo = PyMongo(app)
 dashboard_page = Blueprint('dashboard_page', __name__, template_folder='templates')
 
 @dashboard_page.route("/dashboard")
-@require_login
+#@require_login
 def dashboard():
     userid = request.cookies.get("userID")
     listbooks=list(mongo.db.isbn.find({"username":userid}))

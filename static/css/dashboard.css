@@ -1,0 +1,133 @@
+body {
+    background-color: rgb(146, 214, 216);
+}
+
+img.dashboard {
+    max-width: 100%;
+}
+
+div.dashboard-header {
+    margin: 10px;
+}
+
+/* Search bar Css and button search */
+
+div.search-bar input {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+
+div.search-bar button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+}
+
+div.search-bar button:hover {
+    background: #0b7dda;
+}
+
+div.search-bar::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Dropdown Css on Info about profile / Disconnect */
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown button {
+    padding: 7px;
+    background: #2196F3;
+    color: white;
+    font-size: 20px;
+    border: 1px solid grey;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block;
+    color: #000000;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #00A4BD;
+}
+
+/* Dashboard sections css */
+
+.dashboard-section {
+    text-align:center;
+    border-radius: 20px;
+    background-color: #d5efe9;
+}
+
+.all {
+    text-decoration: none;
+    float: right;
+    font-size: 23px;
+}
+
+.dashboard-section h3 {
+    text-align:left;
+}
+.dashboard-section h4 {
+    font-size: 20px;
+    text-align: center;
+    text-decoration:solid;
+}
+
+/* Custom buttons for dashboard sections */
+
+.custom-button {
+    margin-left:20%;
+    border: 1px solid #dadce0;
+    border-radius: 20px;
+    max-width: 60%;
+}
+
+.custom-button span {
+    color: black;
+}
+
+.custom-button i {
+    margin-right: 10px;
+    color: blue;
+}
+
+.custom-button a {
+    text-decoration: none;
+}
+
+.books img{
+    width:200px;
+    height:200px;
+    margin: 30px;
+}
+

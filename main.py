@@ -3,6 +3,7 @@ from routes.login import login_page
 from routes.register import register_page
 from routes.dashboard import dashboard_page
 from routes.viewer import viewer_page
+from routes.profile import profile_page
 
 # Creation of Flask app
 app = Flask(__name__, template_folder='templates')
@@ -12,3 +13,4 @@ app.register_blueprint(login_page)
 app.register_blueprint(register_page)
 app.register_blueprint(dashboard_page)
 app.register_blueprint(viewer_page)
+app.register_blueprint(profile_page)

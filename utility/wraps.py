@@ -8,7 +8,7 @@ def require_login(f):
         if request.cookies.get("userID"):
             return f(*_, **__)
         else:
-            flash('Cannot denied. Please login.', 'error')
+            flash('Access denied. Please login.', 'error')
             return redirect('/')
     return wrap
 

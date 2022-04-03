@@ -57,6 +57,9 @@ def test():
 
 @dashboard_page.route('/remove', methods=['POST']) 
 def removeBook():
+    isbn=int(request.form.get('isbn'))
+    mongo.db.isbn.delete_one({'ISBN':isbn})
+    print("data=",isbn)
     print("remove book")
     return redirect('/dashboard')
 
@@ -71,11 +74,12 @@ def printbooks(listbooks):
         #print(infos)
         infos_dict = json.loads(infos)
         infos2 = infos_dict['items'][0]
+        title = infos2['volumeInfo']['title']
         #print(infos2['volumeInfo']['title'])
         #print(infos2['volumeInfo'].get("imageLinks"))
         if infos2['volumeInfo'].get("imageLinks")==None:
-            imageBooks.append("No Image")
+            imageBooks.append(["No Image",result])
         if infos2['volumeInfo'].get("imageLinks")!=None:
             #print(infos2['volumeInfo'].get("imageLinks")['thumbnail'])  
-            imageBooks.append(infos2['volumeInfo'].get("imageLinks")['thumbnail'])
+            imageBooks.append([infos2['volumeInfo'].get("imageLinks")['thumbnail'],result])
     return imageBooks

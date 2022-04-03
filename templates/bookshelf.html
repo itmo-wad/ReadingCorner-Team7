@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% for sheet in stylesheets %}
+  <link rel="stylesheet" href="{{sheet}}">
+  {% endfor %}
+  <title>Reading Corner - Bookshelf</title>
+</head>
+
+<body>
+  <div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    <p class="flash-{{category}}">{{ message }}</p>
+    {% endfor %}
+    {% endwith %}
+  </div>
+  <div class="book-list">
+    <h2 class="text-center">Search Result</h2>
+
+    <div id="list-output" class="">
+      <div class="row books">
+        {% for image in books %}
+        <img src="{{image}}">
+        <form action="/remove" method="POST">
+          <input type="submit" value="Remove from by bookshelf">
+        </form>
+        {% endfor %}
+        <!-- card  -->
+
+      </div>
+    </div>
+  </div>
+  <a href="/dashboard">Return to dashboard</a>
+</body>
+
+</html>

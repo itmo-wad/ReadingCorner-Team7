@@ -14,8 +14,9 @@ class readingCornerDatabase:
         self.db = self.client.readingcorner
 
         self.users = self.db.users
-        self.links = self.db.links
         self.books = self.db.books
+
+######################### USERS #########################
 
     # Returns all the users in the database
     def get_all_users(self):
@@ -53,6 +54,28 @@ class readingCornerDatabase:
         query = {"id": user_id}
         newvalues = {"$set": {"password": generate_password_hash(new_password)}}
         self.users.update_one(query, newvalues)
+
+######################### BOOKS #########################
+
+    # Return all books for an user
+    def get_all_books_for_user(self, user_id):
+        return self.books.find({"user_id": user_id})
+
+    # Return a book if exists for a user by isbn
+    def get_user_book_by_isbn(self, user_id, book_isbn):
+        return self.books.find_one({"user_id": user_id, "isbn": book_isbn})
+
+    # Add a book to a user
+    def add_user_book(self, user_id, book_isbn, book_title):
+        new_book = {
+#            "id": uuid.uuid4().hex,
+            "user_id": user_id,
+            "isbn": book_isbn,
+            "title": book_title,
+        }
+        # Check if user already has book
+        if not self.get_user_book_by_isbn(user_id, book_isbn):
+            self.books.insert_one(new_book)
 
 
 # ONLY instance of class within the app

@@ -28,7 +28,7 @@ def login():
     return render_template('login.html', stylesheets=["https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css","/static/css/login.css", "/static/css/main.css"])
 
 @login_page.route("/disconnect")
-#@require_login
+@require_login
 def disconnect():
     resp = make_response(redirect(url_for('login_page.login')))
     resp.delete_cookie('userID')

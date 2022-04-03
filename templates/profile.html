@@ -10,36 +10,38 @@
 </head>
 
 <body>
-    <nav>
-        <label class="logo">Profile</label>
-    </nav>
-    <div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% for category, message in messages %}
-        <p class="flash-{{category}}">{{ message }}</p>
-        {% endfor %}
-        {% endwith %}
-    </div>
-    <form action="/profile" method="POST">
-        <div>
-            <div>
-                <label for="username">Change username</label>
-                <input type="text" name="username" value="{{user.username}}">
-                <button type="submit" name="change-username">Modify username</button>
-            </div>
-            <div>
-                <p>Modify Password</p>
-                <label for="old_password">Old password</label>
-                <input type="password" name="old_password">
-                <label for="new_password">New password</label>
-                <input type="password" name="new_password">
-                <label for="confirm_password">Confirm new password</label>
-                <input type="password" name="confirm_password">
-                <button type="submit" name="change-password">Modify password</button>
-            </div>
+    <div class="container">
+        <div class="text-center">
+            <p>Profile</p>
         </div>
-    </form>
-    <a href="/dashboard">Back to dashboard</a>
+        <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <p class="flash-{{category}}">{{ message }}</p>
+            {% endfor %}
+            {% endwith %}
+        </div>
+        <form action="/profile" method="POST">
+            <div>
+                <div class="form-control">
+                    <p>Change username</p>
+                    <input type="text" name="username" value="{{user.username}}">
+                    <button type="submit" name="change-username">Modify username</button>
+                </div>
+                <div class="form-control">
+                    <p>Modify Password</p>
+                    <label for="old_password">Old password</label>
+                    <input type="password" name="old_password">
+                    <label for="new_password">New password</label>
+                    <input type="password" name="new_password">
+                    <label for="confirm_password">Confirm new password</label>
+                    <input type="password" name="confirm_password">
+                    <button type="submit" name="change-password">Modify password</button>
+                </div>
+            </div>
+        </form>
+        <a href="/dashboard">Back to dashboard</a>
+    </div>
 </body>
 <footer>
     <div class="mt-5 bg-light py-4">

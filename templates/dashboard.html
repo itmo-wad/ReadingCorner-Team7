@@ -5,48 +5,138 @@
   {% for sheet in stylesheets %}
   <link rel="stylesheet" href="{{sheet}}">
   {% endfor %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <link rel="icon" href="/static/img/icone.png">
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-  <script src="static/js/dashboard.js"></script>
+  <script src="/static/js/dashboard.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
   <title>Reading Corner - Dashboard</title>
 </head>
 
 <body>
-  <div>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% for category, message in messages %}
-    <p class="flash-{{category}}">{{ message }}</p>
-    {% endfor %}
-    {% endwith %}
-  </div>
-  <h1 id="header" class="text-center mt-5">Book Finder</h1>
-  <select name="selection-mode" id="selection-mode">
-    <option value="Title">Title</option>
-    <option value="Author">Author</option>
-    <option value="Subject">Subject</option>
-  </select>
-  <input id="search-box" type="text" class="form-control" placeholder="Search Here">
-  <button id="search" type="submit" class="btn btn-primary" onclick=''>Search</button>
-
-  <div class="book-list">
-    <h2 class="text-center">Search Result</h2>
-
-    <div id="list-output" class="">
-      <div class="row books">
-        {% for image in thumbnailBooks %}
-        <img src="{{image[0]}}">
-        <form action="/remove" method="POST">
-          <input type="hidden" name="isbn" value={{image[1]}}>
-          <input type="submit"  value="Remove from by bookshelf">
-        </form>
-        {% endfor %}
-        <!-- card  -->
-
+  <div class="container dashboard-header">
+    <div class="flash">
+      <!-- Flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+      <p class="flash-{{category}}">{{ message }}</p>
+      {% endfor %}
+      {% endwith %}
+    </div>
+    <div class="row">
+      <div class="col col-md-1">
+        <img class="dashboard" src="/static/img/icone.png" alt="Reading Corner Logo">
+      </div>
+      <div class="col">
+        <h1>Reading Corner</h1>
+      </div>
+      <div class="col-sm-1">
+        <select id="selection-mode">
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="subject">Subject</option>
+        </select>
+        <button type="submit" id="quit-search" onclick="" hidden><i class="fa fa-times"></i></button>
+      </div>
+      <div class="col-sm-3 search-bar">
+        <input type="text" placeholder="Search" id="search-box" onkeydown="search(this)">
+        <button type="submit" id="search" onclick=''><i class="fa fa-search"></i></button>
+      </div>
+      <div class="col-sm-1 dropdown">
+        <button><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
+        <div class="dropdown-content">
+          <a href="/profile">Profile</a>
+          <a href="/bookshelf">View all books</a>
+          <a href="/disconnect">Disconnect</a>
+        </div>
       </div>
     </div>
+    <div id="search-output">
+      <!-- Book search Js -->
+    </div>
+    <div id="bookshelf">
+      {% if releases %}
+      <div class="row dashboard-section mt-5">
+
+        <h3><i class="fa fa-bullhorn" aria-hidden="true"></i> New releases <a class="all"
+            href="/dashboard/new-releases">See all new releases</a></h3>
+
+        {% for release in releases %}
+        <div class="col">
+          <img src="{{release.cover}}" alt="Book cover.">
+          <h4>{{release.title}}</h4>
+          <p>{{release.author}}</p>
+          <div class="custom-button">
+            <a href="{{release.link}}" target="_blank">
+              <div>
+                <span><i class="fa fa-book read-book" aria-hidden="true"></i></span>
+                <span>Read book</span>
+              </div>
+            </a>
+          </div>
+          <div class="custom-button">
+            <a href="/add-book">
+              <div>
+                <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                <span>Add to bookshelf</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if number_of_books > 0 %}
+      <div class="row dashboard-section mt-5">
+
+        <h3><i class="fa fa-address-book-o" aria-hidden="true"></i> Currently reading <a class="all"
+            href="/bookshelf">See all books</a></h3>
+
+        {% for book in current_books %}
+        <div class="col">
+          <img src="" alt="Book cover.">
+          <h4>{{book.title}}</h4>
+          <p>Page {{book.progress}}</p>
+          <form method="POST">
+            <input type="hidden" name="isbn" value={{book.isbn}}>
+            <input type="text" value="{{book.progress}}" name="page">
+            <button name="page" type="submit">Update page count</button>
+          </form>
+          <form method="POST">
+            <input type="hidden" name="isbn" value={{book.isbn}}>
+            <button name="finished" type="submit">Set book as finished reading</button>
+          </form>
+          <div class="custom-button">
+            <a href="{{book.link}}" target="_blank">
+              <div>
+                <span><i class="fa fa-book read-book" aria-hidden="true"></i></span>
+                <span>Read book</span>
+              </div>
+            </a>
+          </div>
+          <div class="custom-button">
+            <form action="/remove-book" method="POST">
+              <input type="hidden" name="isbn" value={{book.isbn}}>
+              <button type="submit" value="Remove from by bookshelf"><span><i class="fa fa-minus"
+                    aria-hidden="true"></i></span>
+                <span>Delete from bookshelf</span></button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% if number_of_books == 0 %}
+      <h3>Not currently reading any books</h3>
+      {% endif %}
+    </div>
   </div>
-  <a href="/disconnect">Disconnect</a>
 </body>
+<footer>
+  <div class="mt-5 bg-light py-4">
+    <div class="container">
+      <p class="text-muted">© 2022 Reading Corner All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
 </html>

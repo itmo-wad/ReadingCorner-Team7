@@ -14,8 +14,9 @@ class readingCornerDatabase:
         self.db = self.client.readingcorner
 
         self.users = self.db.users
-        self.links = self.db.links
         self.books = self.db.books
+
+######################### USERS #########################
 
     # Returns all the users in the database
     def get_all_users(self):
@@ -53,6 +54,53 @@ class readingCornerDatabase:
         query = {"id": user_id}
         newvalues = {"$set": {"password": generate_password_hash(new_password)}}
         self.users.update_one(query, newvalues)
+
+######################### BOOKS #########################
+
+    # Return all books for an user
+    def get_all_books_for_user(self, user_id):
+        return self.books.find({"user_id": user_id})
+
+    # Return a book if exists for a user by isbn
+    def get_user_book_by_isbn(self, user_id, book_isbn):
+        return self.books.find_one({"user_id": user_id, "isbn": book_isbn})
+
+    # Return a book if exists for a user by isbn
+    def get_current_reading_books(self, user_id):
+        return self.books.find({"user_id": user_id, "status": "Reading"})
+
+    # Change the status of the book, by default change to finished
+    def update_book_status(self, user_id, book_isbn, new_status="Finished"):
+        query = {"user_id": user_id, "isbn": int(book_isbn)}
+        newvalues = {"$set": {"status": new_status}}
+        print(query, newvalues)
+        self.books.update_one(query, newvalues)
+
+    # Update page number
+    def update_page_number(self, user_id, book_isbn, new_page_number):
+        query = {"user_id": user_id, "isbn": int(book_isbn)}
+        newvalues = {"$set": {"progress": int(new_page_number)}}
+        self.books.update_one(query, newvalues)
+
+    # Add a book to a user
+    def add_user_book(self, user_id, book_isbn, book_title):
+        new_book = {
+#            "id": uuid.uuid4().hex,
+            "user_id": user_id,
+            "isbn": book_isbn,
+            "title": book_title,
+            "status": "Reading", # States : Reading / Finished
+            "progress": 0,
+        }
+        # Check if user already has book
+        if not self.get_user_book_by_isbn(user_id, book_isbn):
+            self.books.insert_one(new_book)
+
+    # Delete book by isbn and user_id
+    def delete_book_by_isbn_and_user(self, user_id, book_isbn):
+        self.books.delete_one({'user_id': user_id, 'isbn': int(book_isbn)})
+
+
 
 
 # ONLY instance of class within the app

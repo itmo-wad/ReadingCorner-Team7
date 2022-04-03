@@ -43,11 +43,8 @@ $(document).ready(function () {
     document.body.style.backgroundImage = "url('')";
     searchData = $("#search-box").val();
     typeResearch = $("#selection-mode").val();
-    //handling empty search input field
-    if (searchData === "" || searchData === null) {
-      displayError();
-    }
-    else {
+
+    if (searchData !== "" && searchData !== null) {
       if (typeResearch === 'author') {
         searchData = " '' +inauthor:" + searchData;
       }
@@ -55,8 +52,6 @@ $(document).ready(function () {
         searchData = " '' +subject:" + searchData;
       }
       name = bookUrl + searchData
-      //name = bookUrl + searchData,
-      // console.log(searchData);
       // $.get("https://www.googleapis.com/books/v1/volumes?q="+searchData, getBookData()});
       document.getElementById("quit-search").hidden = false;
       document.getElementById("bookshelf").hidden = true;
@@ -80,8 +75,6 @@ $(document).ready(function () {
     }
   });
 
-
-
   function displayResults(response) {
     for (var i = 0; i < response.items.length; i += 1) {
       item = response.items[i];
@@ -89,9 +82,8 @@ $(document).ready(function () {
       author1 = item.volumeInfo.authors;
       publisher1 = item.volumeInfo.publisher;
       bookLink1 = item.volumeInfo.previewLink;
-      bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
+      bookIsbn = ((item.volumeInfo.industryIdentifiers.length > 1) ? bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier : NaN);
       bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr;
-      //loadResult(bookLink1);
       // in production code, item.text should have the HTML entities escaped.
       outputList.innerHTML += '<div class="row mt-4">' +
         formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn) +
@@ -105,7 +97,6 @@ $(document).ready(function () {
   * @return htmlCard
   */
   function formatOutput(bookImg, title, author, publisher, bookLink, bookIsbn) {
-    // console.log(title + ""+ author +" "+ publisher +" "+ bookLink+" "+ bookImg)
     //var viewUrl = 'book.html?isbn='+bookIsbn; //constructing link for bookviewer
     var js_title = title.split('\'').join('\\\'');
     var viewUrl = 'https://www.googleapis.com/books/v1/volumes?q=""+book.html?isbn:' + bookIsbn; //constructing link for bookviewer
@@ -128,10 +119,6 @@ $(document).ready(function () {
        </div>
      </div>`
     return htmlCard;
-  }
-  //handling error for empty search box
-  function displayError() {
-    alert("search term can not be empty!")
   }
   //<a target="_blank" href=/viewer class="btn btn-secondary" data-isbn='${bookIsbn}'>Read Book </a>
   // <a target="_blank" href=javascript:void(0); class="btn btn-secondary" onclick = "readBook(${bookIsbn})">Read Book </a>

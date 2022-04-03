@@ -7,12 +7,14 @@
     <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
     <script type="text/javascript">
       var name=localStorage.getItem("isbn");
+      //print(name)
       //document.getElementById("demo").innerHTML = name;
       console.log(name)
       google.books.load();
       function initialize() {
         var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-        viewer.load('ISBN:' + name);
+        //viewer.load('ISBN:'+name);
+        viewer.load('ISBN:'+name);
       }
 
       google.books.setOnLoadCallback(initialize);

@@ -38,7 +38,7 @@ $(document).ready(function() {
      }
     else { 
       if (typeResearch==='Title'){
-        name = bookUrl + searchData;
+        name = bookUrl + searchData +"&filter=partial";
         console.log(name)
       }
       if (typeResearch==='Author'){
@@ -46,14 +46,14 @@ $(document).ready(function() {
         console.log(name)
       }
       if (typeResearch==='Subject'){
-        name = bookUrl + " '' +subject:"+searchData;
+        name = bookUrl +" '' +subject:"+searchData;
         console.log(name)
       }
       //name = bookUrl + searchData,
        // console.log(searchData);
        // $.get("https://www.googleapis.com/books/v1/volumes?q="+searchData, getBookData()});
        $.ajax({
-          url : name,
+          url : name ,
           dataType: "json",
           success: function(response) {
             console.log(response)
@@ -86,10 +86,11 @@ $(document).ready(function() {
         bookLink1 = item.volumeInfo.previewLink;
         bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
         bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr ;
+        viewability = item.accessInfo.viewability;
         //loadResult(bookLink1);
         // in production code, item.text should have the HTML entities escaped.
         outputList.innerHTML += '<div class="row mt-4">' +
-                                formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn) +
+                                formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn, viewability) +
                                 '</div>';
 
         console.log(outputList);
@@ -101,10 +102,15 @@ $(document).ready(function() {
    * @param bookImg title author publisher bookLink
    * @return htmlCard
    */
-   function formatOutput(bookImg, title, author, publisher, bookLink, bookIsbn) {
+   function formatOutput(bookImg, title, author, publisher, bookLink, bookIsbn, viewability) {
      // console.log(title + ""+ author +" "+ publisher +" "+ bookLink+" "+ bookImg)
      //var viewUrl = 'book.html?isbn='+bookIsbn; //constructing link for bookviewer
      var viewUrl = 'https://www.googleapis.com/books/v1/volumes?q=""+book.html?isbn:'+bookIsbn; //constructing link for bookviewer
+     var lien = `<a> </a>`;
+     console.log(viewability)
+     if (viewability !== "NO_PAGES") {
+      lien = `<a target="_blank" href=/viewer class="btn btn-secondary" onclick = "readBook(${bookIsbn})">Read Book </a>` ;
+    }
      var htmlCard = `<div class="col-lg-6">
        <div class="card" style="">
          <div class="row no-gutters">
@@ -116,10 +122,10 @@ $(document).ready(function() {
                <h5 class="card-title">${title}</h5>
                <p class="card-text">Author: ${author}</p>
                <p class="card-text">Publisher: ${publisher}</p>
-               <a target="_blank" href=/viewer class="btn btn-secondary" onclick = "readBook(${bookIsbn})">Read Book </a>
+               ${lien}
                <a href=javascript:void(0); onclick = "loadResult(${bookIsbn})"> Add to my lectures </a>
              </div>
-           </div>
+           </div>[[]]
          </div>
        </div>
      </div>`

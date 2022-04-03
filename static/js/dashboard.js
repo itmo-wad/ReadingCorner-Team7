@@ -43,33 +43,24 @@ $(document).ready(function () {
     document.body.style.backgroundImage = "url('')";
      searchData = $("#search-box").val(); // Prend la valeur rentrée par l'user dans la barre de recherche
      typeResearch = $("#selection-mode").val();
-     console.log(typeResearch)
      //handling empty search input field
-     if(searchData === "" || searchData === null) {
-       displayError();
-     }
-    else { 
+     if(searchData !== "" && searchData !== null) {
       if (typeResearch==='title'){
         name = bookUrl + searchData + " &filter=partial" ;//+ " &filter=partial"
-        console.log('name')
-        console.log('coucou')
       }
       if (typeResearch==='author'){
         name = bookUrl + " '' +inauthor:"+searchData;
-        console.log(name)
       }
       if (typeResearch==='subject'){
         name = bookUrl +" '' +subject:"+searchData;
-        console.log(name)
       }
-      //name = bookUrl + searchData,
-       // console.log(searchData);
+      document.getElementById("quit-search").hidden = false;
+      document.getElementById("bookshelf").hidden = true;
        // $.get("https://www.googleapis.com/books/v1/volumes?q="+searchData, getBookData()});
        $.ajax({
           url : name ,
           dataType: "json",
           success: function(response) {
-            console.log(response)
             if (response.totalItems === 0) {
               alert("no result!.. try again")
             }
@@ -114,12 +105,10 @@ $(document).ready(function () {
    * @return htmlCard
    */
    function formatOutput(bookImg, title, author, publisher, bookLink, bookIsbn, viewability) {
-     // console.log(title + ""+ author +" "+ publisher +" "+ bookLink+" "+ bookImg)
      //var viewUrl = 'book.html?isbn='+bookIsbn; //constructing link for bookviewer
      var js_title = title.split('\'').join('\\\'');
      var viewUrl = 'https://www.googleapis.com/books/v1/volumes?q=""+book.html?isbn:'+bookIsbn; //constructing link for bookviewer
      var lien = `<a> </a>`;
-     console.log(viewability)
      if (viewability !== "NO_PAGES") {
       lien = `<a target="_blank" href=/viewer class="btn btn-secondary" onclick = "readBook(${bookIsbn})">Read Book </a>` ;
     }

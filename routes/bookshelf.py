@@ -26,13 +26,14 @@ def convert_books(listbooks):
         #print(infos)
         infos_dict = json.loads(infos)
         infos2 = infos_dict['items'][0]
+        title = listbooks[i]['title']
         #print(infos2['volumeInfo']['title'])
         #print(infos2['volumeInfo'].get("imageLinks"))
         if infos2['volumeInfo'].get("imageLinks")==None:
-            imageBooks.append("No Image")
+            imageBooks.append(["No Image",result])
         if infos2['volumeInfo'].get("imageLinks")!=None:
             #print(infos2['volumeInfo'].get("imageLinks")['thumbnail'])  
-            imageBooks.append(infos2['volumeInfo'].get("imageLinks")['thumbnail'])
+            imageBooks.append([infos2['volumeInfo'].get("imageLinks")['thumbnail'],result])
     return imageBooks
 
 @bookshelf_page.route('/add-book', methods=['POST'])
@@ -46,4 +47,5 @@ def add_book():
 @bookshelf_page.route('/remove-book', methods=['POST']) 
 @require_login
 def delete_book():
-    return redirect('/dashboard')
+    db.delete_book_by_isbn_and_user(request.cookies.get("userID"), request.form.get('isbn'))
+    return redirect('bookshelf')

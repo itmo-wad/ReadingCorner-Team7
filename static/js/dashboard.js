@@ -23,7 +23,7 @@ $(document).ready(function () {
   var outputList = document.getElementById("search-output");
   var bookUrl = "https://www.googleapis.com/books/v1/volumes?q=";
   var apiKey = "key=AIzaSyDtXC7kb6a7xKJdm_Le6_BYoY5biz6s8Lw";
-  var placeHldr = '<img src="https://via.placeholder.com/150">';
+  var placeHldr = "https://via.placeholder.com/150";
   var searchData;
   var typeResearch;
   var name;
@@ -82,7 +82,7 @@ $(document).ready(function () {
 
 
    function displayResults(response) {
-      for (var i = 0; i < response.items.length; i+=1) {
+      for (var i = 0; i < response.items.length; i+=2) {
         item = response.items[i];
         title1 = item.volumeInfo.title;
         author1 = item.volumeInfo.authors;
@@ -91,10 +91,20 @@ $(document).ready(function () {
         bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
         bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr ;
         viewability = item.accessInfo.viewability;
+        
+        item2 = response.items[i+1];
+        title2 = item2.volumeInfo.title;
+        author2 = item2.volumeInfo.authors;
+        publisher2 = item2.volumeInfo.publisher;
+        bookLink2 = item2.volumeInfo.previewLink;
+        bookIsbn2 = item2.volumeInfo.industryIdentifiers[1].identifier
+        bookImg2 = (item2.volumeInfo.imageLinks) ? item2.volumeInfo.imageLinks.thumbnail : placeHldr ;
+        viewability2 = item2.accessInfo.viewability;
         //loadResult(bookLink1);
         // in production code, item.text should have the HTML entities escaped.
         outputList.innerHTML += '<div class="row mt-4">' +
                                 formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn, viewability) +
+                                formatOutput(bookImg2, title2, author2, publisher2, bookLink2, bookIsbn2, viewability2) +                                
                                 '</div>';
       }
    }
@@ -126,7 +136,7 @@ $(document).ready(function () {
                ${lien}
                <a href=javascript:void(0); onclick = "loadResult(${bookIsbn}, '${js_title}')"> Add to my lectures </a>
              </div>
-           </div>[[]]
+           </div>
          </div>
        </div>
      </div>`

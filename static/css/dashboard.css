@@ -1,14 +1,18 @@
-body {
+/* body {
     background-color: rgb(146, 214, 216);
+} */
+
+body {
+    background-color: #F0FFFF;
 }
 
 img.dashboard {
     max-width: 100%;
 }
 
-div.dashboard-header {
+/* div.dashboard-header {
     margin: 10px;
-}
+} */
 
 /* Search bar Css and button search */
 

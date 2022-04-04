@@ -13,6 +13,36 @@
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #0d6efd !important">
+    <div class="container-fluid">
+      <div class="header-placement">
+        <img class="dashboard" src="/static/img/icone.png" alt="Reading Corner Logo" style="margin-right: 15px;">
+        <a class="navbar-brand text-white h1" href="#">Reading Corner</a>
+      </div>
+      
+      
+    </div>
+    <div class="col-sm-1">
+        <select id="selection-mode">
+          <option value="title">Title</option>
+          <option value="author">Author</option>
+          <option value="subject">Subject</option>
+        </select>
+        <button type="submit" id="quit-search" onclick="" hidden><i class="fa fa-times"></i></button>
+      </div>
+      <div class="col-sm-3 search-bar">
+        <input type="text" placeholder="Search" id="search-box" onkeydown="search(this)">
+        <button type="submit" id="search" onclick=''><i class="fa fa-search"></i></button>
+      </div>
+      <div class="col-sm-1 dropdown">
+        <button><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
+        <div class="dropdown-content">
+          <a href="/profile">Profile</a>
+          <a href="/bookshelf">View all books</a>
+          <a href="/disconnect">Disconnect</a>
+        </div>
+      </div>
+  </nav>
   <div class="container dashboard-header">
     <div class="flash">
       <!-- Flash messages -->
@@ -22,7 +52,8 @@
       {% endfor %}
       {% endwith %}
     </div>
-    <div class="row">
+    
+    <!-- <div class="row">
       <div class="col col-md-1">
         <img class="dashboard" src="/static/img/icone.png" alt="Reading Corner Logo">
       </div>
@@ -49,7 +80,7 @@
           <a href="/disconnect">Disconnect</a>
         </div>
       </div>
-    </div>
+    </div> -->
     <div id="search-output">
       <!-- Book search Js -->
     </div>

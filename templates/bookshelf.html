@@ -48,15 +48,15 @@
     <div id="list-output" class="vertical-display">
       <div class="row-display">
         {% for image in books %}
-        <div class="card" style="width: 18rem;">
-            <img src="{{image[0]}}" class="card-img-top">
-            <form action="/remove-book" method="POST">
+        <!-- <div class="card" style="width: 18rem;"> -->
+          <form action="/remove-book" method="POST" class="card" style="width: 18rem;">
+              <img src="{{image[0]}}" class="card-img-top" style="width: 100px !important;">
               <input type="hidden" name="isbn" value={{image[1]}}>
-              <input type="submit"  value="Remove from by bookshelf" class="btn btn-primary" style="width: -webkit-fill-available;">
+              <input type="submit"  value="Remove from by bookshelf" class="btn btn-primary">
             </form>
           {% endfor %}
           <!-- card  -->
-          </div>
+          <!-- </div> -->
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
-function loadResult(bookIsbn, title) {
-  const s = JSON.stringify({ bookIsbn, title });
+function loadResult(bookIsbn, title, bookImg) {
+  const s = JSON.stringify({ bookIsbn, title, bookImg });
   $.ajax({
     url: "/add-book",
     type: "POST",
@@ -61,10 +61,13 @@ $(document).ready(function () {
           url : name ,
           dataType: "json",
           success: function(response) {
+            console.log(response)
             if (response.totalItems === 0) {
               alert("no result!.. try again")
             }
+            
             else {
+              
               $("#title").animate({'margin-top': '5px'}, 1000); //search box animation
               $(".book-list").css("visibility", "visible");
               displayResults(response); // Appelle la fonction qui afffiche les résultats
@@ -134,7 +137,7 @@ $(document).ready(function () {
                <p class="card-text">Author: ${author}</p>
                <p class="card-text">Publisher: ${publisher}</p>
                ${lien}
-               <a href=javascript:void(0); onclick = "loadResult(${bookIsbn}, '${js_title}')"> Add to my lectures </a>
+               <a href=javascript:void(0); onclick = "loadResult(${bookIsbn}, '${js_title}','${bookImg}')"> Add to my lectures </a>
              </div>
            </div>
          </div>

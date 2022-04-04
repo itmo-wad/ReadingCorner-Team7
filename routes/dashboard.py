@@ -3,8 +3,7 @@ from utility.database import readingCornerDb as db
 from utility.wraps import require_login
 from flask_pymongo import PyMongo
 app = Flask(__name__)
-#app.config["MONGO_URI"] = "mongodb://localhost:27017/readingcorner"
-app.config["MONGO_URI"] = "mongodb+srv://axelportable:123test@cluster0.523ue.mongodb.net/readingcorner"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/readingcorner"
 mongo = PyMongo(app)
 
 dashboard_page = Blueprint('dashboard_page', __name__, template_folder='templates')
@@ -30,6 +29,7 @@ def dashboard():
             flash("Status of book updates to finished.", "success")
 
     current_books = db.get_current_reading_books(request.cookies.get("userID"))
+    print("le current book",current_books)
 
     # TODO Get new releases from API
     new_releases = [{"cover":"/static/img/cover-TEST.jpg", "title":"50 shades of Grey", "author":"Yohann Goher", "link": "https://www.google.fr/books/edition/Blue_Highways/DTk3AQAAQBAJ?hl=en&gbpv=1"},

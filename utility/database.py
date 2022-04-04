@@ -10,10 +10,8 @@ import uuid
 # New functions can be added at the bottom of the class
 class readingCornerDatabase:
     def __init__(self):
-        #self.client = MongoClient('localhost', 27017)
-        self.client = MongoClient('mongodb+srv://axelportable:123test@cluster0.523ue.mongodb.net', 27017)
+        self.client = MongoClient('localhost', 27017)
         self.db = self.client.readingcorner
-
         self.users = self.db.users
         self.books = self.db.books
 
@@ -84,7 +82,7 @@ class readingCornerDatabase:
         self.books.update_one(query, newvalues)
 
     # Add a book to a user
-    def add_user_book(self, user_id, book_isbn, book_title):
+    def add_user_book(self, user_id, book_isbn, book_title,bookImg):
         new_book = {
 #            "id": uuid.uuid4().hex,
             "user_id": user_id,
@@ -92,6 +90,8 @@ class readingCornerDatabase:
             "title": book_title,
             "status": "Reading", # States : Reading / Finished
             "progress": 0,
+            "bookImg": bookImg,
+            
         }
         # Check if user already has book
         if not self.get_user_book_by_isbn(user_id, book_isbn):

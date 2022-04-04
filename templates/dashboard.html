@@ -100,8 +100,9 @@
       border: 3mm ridge #0d6efd;">
 
         {% for book in current_books %}
+        
         <div class="col">
-          <img src="" alt="Book cover.">
+          <img src="{{book.bookImg}}" alt="Book cover.">
           <h4>{{book.title}}</h4>
           <p>Page {{book.progress}}</p>
           <form method="POST">

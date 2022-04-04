@@ -6,12 +6,15 @@ import requests
 
 bookshelf_page = Blueprint('bookshelf_page', __name__, template_folder='templates')
 
-@bookshelf_page.route("/bookshelf", methods=["POST", "GET"])
+@bookshelf_page.route("/bookshelf", methods=["GET", "POST"])
 @require_login
 def bookshelf():
+    print("ahah")
     book_list=db.get_all_books_for_user(request.cookies.get("userID"))
+    #print(book_list)
     book_list=convert_books(list(book_list))
     print(book_list)
+    
     return render_template('bookshelf.html', stylesheets=["https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
         "/static/css/main.css", "/static/css/bookshelf.css"], books=book_list)
 
@@ -21,9 +24,10 @@ def convert_books(listbooks):
     imageBooks=[]
     for i in range (len(listbooks)):
         result=listbooks[i]['isbn']
+        print(result)
         data = requests.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + str(result))
         infos = data.text
-        #print(infos)
+        print(infos)
         infos_dict = json.loads(infos)
         infos2 = infos_dict['items'][0]
         title = listbooks[i]['title']
@@ -41,7 +45,8 @@ def convert_books(listbooks):
 def add_book():
     output = request.get_json()
     result = json.loads(output)
-    db.add_user_book(request.cookies.get("userID"), result["bookIsbn"], result["title"])
+    print(result)
+    db.add_user_book(request.cookies.get("userID"), result["bookIsbn"], result["title"],result["bookImg"])
     return result
 
 @bookshelf_page.route('/remove-book', methods=['POST']) 

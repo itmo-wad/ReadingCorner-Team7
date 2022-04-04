@@ -52,44 +52,18 @@
       {% endfor %}
       {% endwith %}
     </div>
-    
-    <!-- <div class="row">
-      <div class="col col-md-1">
-        <img class="dashboard" src="/static/img/icone.png" alt="Reading Corner Logo">
-      </div>
-      <div class="col">
-        <h1>Reading Corner</h1>
-      </div>
-      <div class="col-sm-1">
-        <select id="selection-mode">
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-          <option value="subject">Subject</option>
-        </select>
-        <button type="submit" id="quit-search" onclick="" hidden><i class="fa fa-times"></i></button>
-      </div>
-      <div class="col-sm-3 search-bar">
-        <input type="text" placeholder="Search" id="search-box" onkeydown="search(this)">
-        <button type="submit" id="search" onclick=''><i class="fa fa-search"></i></button>
-      </div>
-      <div class="col-sm-1 dropdown">
-        <button><i class="fa fa-ellipsis-h" aria-hidden="true"></i></button>
-        <div class="dropdown-content">
-          <a href="/profile">Profile</a>
-          <a href="/bookshelf">View all books</a>
-          <a href="/disconnect">Disconnect</a>
-        </div>
-      </div>
-    </div> -->
     <div id="search-output">
       <!-- Book search Js -->
     </div>
-    <div id="bookshelf">
+    <div id="bookshelf" style="background-color: #F0FFFF;">
       {% if releases %}
-      <div class="row dashboard-section mt-5">
-
-        <h3><i class="fa fa-bullhorn" aria-hidden="true"></i> New releases <a class="all"
-            href="/dashboard/new-releases">See all new releases</a></h3>
+      <h3 style="margin-top: 50px;"><i class="fa fa-bullhorn" aria-hidden="true"></i> New releases <a class="all"
+          href="/dashboard/new-releases" style="color: black; font-size: 28px;">See all new releases</a></h3>
+      <div class="row dashboard-section" style="background-color: white; 
+      padding: 30px; 
+      margin-bottom: 50px;
+      border-radius: 42px;
+      border: 3mm ridge #0d6efd;">
 
         {% for release in releases %}
         <div class="col">
@@ -117,10 +91,13 @@
       </div>
       {% endif %}
       {% if number_of_books > 0 %}
-      <div class="row dashboard-section mt-5">
-
-        <h3><i class="fa fa-address-book-o" aria-hidden="true"></i> Currently reading <a class="all"
-            href="/bookshelf">See all books</a></h3>
+      <h3><i class="fa fa-address-book-o" aria-hidden="true"></i> Currently reading <a class="all"
+          href="/bookshelf" style="color: black;font-size: 28px;">See all books</a></h3>
+      <div class="row dashboard-section" style="background-color: white;
+      padding: 30px;
+      margin-bottom: 50px;
+      border-radius: 42px;
+      border: 3mm ridge #0d6efd;">
 
         {% for book in current_books %}
         <div class="col">

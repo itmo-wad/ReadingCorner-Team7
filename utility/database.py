@@ -10,7 +10,8 @@ import uuid
 # New functions can be added at the bottom of the class
 class readingCornerDatabase:
     def __init__(self):
-        self.client = MongoClient('localhost', 27017)
+        #self.client = MongoClient('localhost', 27017)
+        self.client = MongoClient('mongodb+srv://axelportable:123test@cluster0.523ue.mongodb.net', 27017)
         self.db = self.client.readingcorner
 
         self.users = self.db.users

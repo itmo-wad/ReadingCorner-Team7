@@ -1,6 +1,11 @@
 from flask import Flask, Blueprint, redirect, url_for, render_template, request, flash
 from utility.database import readingCornerDb as db
 from utility.wraps import require_login
+from flask_pymongo import PyMongo
+app = Flask(__name__)
+#app.config["MONGO_URI"] = "mongodb://localhost:27017/readingcorner"
+app.config["MONGO_URI"] = "mongodb+srv://axelportable:123test@cluster0.523ue.mongodb.net/readingcorner"
+mongo = PyMongo(app)
 
 dashboard_page = Blueprint('dashboard_page', __name__, template_folder='templates')
 

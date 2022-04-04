@@ -19,10 +19,18 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #0d6efd !important">
     <div class="container-fluid">
-      <div class="header-placement">
+      <div>
         <img class="dashboard" src="/static/img/icone.png" alt="Reading Corner Logo" style="margin-right: 15px;">
         <a class="navbar-brand text-white h1" href="#">Reading Corner</a>
       </div>
+      <ul class="navbar-nav" style="margin-top: auto;">
+        <li class="nav-item ">
+          <a class="nav-link active text-white h5" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white h5" href="#">Profile</a>
+        </li>
+      </ul>
       
       
     </div>
@@ -49,10 +57,13 @@
       <div class="row-display">
         {% for image in books %}
         <!-- <div class="card" style="width: 18rem;"> -->
-          <form action="/remove-book" method="POST" class="card" style="width: 18rem;">
-              <img src="{{image[0]}}" class="card-img-top" style="width: 100px !important;">
+          <form action="/remove-book" method="POST" class="card" style="margin-right: 5px; margin-bottom: 10px;">
+              <img src="{{image[0]}}" class="card-img-top"style="float: left;
+              width:  300px;
+              height: 400px;
+              object-fit: cover;">
               <input type="hidden" name="isbn" value={{image[1]}}>
-              <input type="submit"  value="Remove from by bookshelf" class="btn btn-primary">
+              <input type="submit"  value="Remove from by bookshelf" class="btn btn-danger">
             </form>
           {% endfor %}
           <!-- card  -->

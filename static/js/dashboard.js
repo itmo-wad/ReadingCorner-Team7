@@ -94,6 +94,7 @@ $(document).ready(function () {
         bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
         bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr ;
         viewability = item.accessInfo.viewability;
+        description = item.volumeInfo.description;
         
         item2 = response.items[i+1];
         title2 = item2.volumeInfo.title;
@@ -103,11 +104,12 @@ $(document).ready(function () {
         bookIsbn2 = item2.volumeInfo.industryIdentifiers[1].identifier
         bookImg2 = (item2.volumeInfo.imageLinks) ? item2.volumeInfo.imageLinks.thumbnail : placeHldr ;
         viewability2 = item2.accessInfo.viewability;
+        description2 = item2.volumeInfo.description;
         //loadResult(bookLink1);
         // in production code, item.text should have the HTML entities escaped.
         outputList.innerHTML += '<div class="row mt-4">' +
-                                formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn, viewability) +
-                                formatOutput(bookImg2, title2, author2, publisher2, bookLink2, bookIsbn2, viewability2) +                                
+                                formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn, viewability,description) +
+                                formatOutput(bookImg2, title2, author2, publisher2, bookLink2, bookIsbn2, viewability2,description2) +                                
                                 '</div>';
       }
    }
@@ -117,7 +119,7 @@ $(document).ready(function () {
    * @param bookImg title author publisher bookLink
    * @return htmlCard
    */
-   function formatOutput(bookImg, title, author, publisher, bookLink, bookIsbn, viewability) {
+   function formatOutput(bookImg, title, author, publisher, bookLink, bookIsbn, viewability,description) {
      //var viewUrl = 'book.html?isbn='+bookIsbn; //constructing link for bookviewer
      var js_title = title.split('\'').join('\\\'');
      var viewUrl = 'https://www.googleapis.com/books/v1/volumes?q=""+book.html?isbn:'+bookIsbn; //constructing link for bookviewer
@@ -138,6 +140,7 @@ $(document).ready(function () {
                <p class="card-text">Publisher: ${publisher}</p>
                ${lien}
                <a href=javascript:void(0); onclick = "loadResult(${bookIsbn}, '${js_title}','${bookImg}')"> Add to my lectures </a>
+               <p> ${description} </p>
              </div>
            </div>
          </div>

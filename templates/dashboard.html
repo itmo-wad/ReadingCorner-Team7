@@ -19,30 +19,30 @@
         <img class="dashboard" src="/static/img/icone.png" alt="Reading Corner Logo" style="margin-right: 15px;">
         <a class="navbar-brand text-white h1" href="#">Reading Corner</a>
       </div>
-      
+
     </div>
     <div>
       <button type="submit" id="quit-search" onclick="" hidden><i class="fa fa-times"></i></button>
     </div>
     <div style="margin: 0 15px;">
-        <select class="form-select form-select-lg" id="selection-mode" style="font-size: 17px; width: auto;">
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-          <option value="subject">Subject</option>
-        </select>
+      <select class="form-select form-select-lg" id="selection-mode" style="font-size: 17px; width: auto;">
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+        <option value="subject">Subject</option>
+      </select>
+    </div>
+    <div class="search-bar" style="margin: 0 15px;">
+      <input class="form-control" id="search-box" type="text" placeholder="Search" onkeydown="search(this)">
+      <button class="btn btn-primary" id="search" type="submit" onclick=''><i class="fa fa-search"></i></button>
+    </div>
+    <div class="col-sm-1 dropdown">
+      <button><i class="fa fa-bars" aria-hidden="true"></i></button>
+      <div class="dropdown-content">
+        <a class="option-redirection" href="/profile">Profile</a>
+        <a class="option-redirection" href="/bookshelf">View all books</a>
+        <a class="option-redirection" href="/disconnect">Disconnect</a>
       </div>
-      <div class="search-bar" style="margin: 0 15px;">
-        <input class="form-control" id="search-box" type="text" placeholder="Search" onkeydown="search(this)">
-        <button class="btn btn-primary" id="search" type="submit" onclick=''><i class="fa fa-search"></i></button>
-      </div>
-      <div class="col-sm-1 dropdown">
-        <button><i class="fa fa-bars" aria-hidden="true"></i></button>
-        <div class="dropdown-content">
-          <a class="option-redirection" href="/profile">Profile</a>
-          <a class="option-redirection" href="/bookshelf">View all books</a>
-          <a class="option-redirection" href="/disconnect">Disconnect</a>
-        </div>
-      </div>
+    </div>
   </nav>
   <div class="container dashboard-header">
     <div class="flash">
@@ -56,43 +56,45 @@
     <div id="search-output">
       <!-- Book search Js -->
     </div>
-    <div id="bookshelf" style="background-color: #F0FFFF;">
-      {% if releases %}
-      <h3 style="margin-top: 50px;"><i class="fa fa-bullhorn" aria-hidden="true"></i> New releases <a class="all"
-          href="https://play.google.com/store/books/collection/cluster?clp=sgI2Ci4KKHByb21vdGlvbl8xMDAxY2M2X2FydHNfZW50ZXJ0YWlubWVudF9uZXcQRBgBIgQIBQgs:S:ANO1ljJsjec&gsr=CjmyAjYKLgoocHJvbW90aW9uXzEwMDFjYzZfYXJ0c19lbnRlcnRhaW5tZW50X25ldxBEGAEiBAgFCCw%3D:S:ANO1ljIBXTY&hl=en_US&gl=US" style="color: black; font-size: 28px;">See all new releases</a></h3>
-      <div class="row" style="background-color: white; 
+    <button type="submit" onclick="" id="new-releases" style="margin-top: 50px;"><i class="fa fa-bullhorn"
+        aria-hidden="true"></i>Search new releases</button>
+    <div>
+      <div id="releases" style="background-color: #F0FFFF;">
+        {% if releases %}
+        <div class="row" style="background-color: white; 
       margin-bottom: 50px;
       border: 2mm solid black;
       text-align:center;">
 
-        {% for release in releases %}
-        <div class="col" style="border-right: 1mm solid;">
-          <img src="{{release.cover}}" alt="Book cover.">
-          <h4>{{release.title}}</h4>
-          <p>{{release.author}}</p>
-          <div class="custom-button">
-            <a href="{{release.link}}" target="_blank">
-              <div>
-                <span><i class="fa fa-book read-book" aria-hidden="true"></i></span>
-                <span>Read book</span>
-              </div>
-            </a>
+          {% for release in releases %}
+          <div class="col" style="border-right: 1mm solid;">
+            <img src="{{release.cover}}" alt="Book cover.">
+            <h4>{{release.title}}</h4>
+            <p>{{release.author}}</p>
+            <div class="custom-button">
+              <a href="{{release.link}}" target="_blank">
+                <div>
+                  <span><i class="fa fa-book read-book" aria-hidden="true"></i></span>
+                  <span>Read book</span>
+                </div>
+              </a>
+            </div>
+            <div class="custom-button">
+              <a href="/add-book">
+                <div>
+                  <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+                  <span>Add to bookshelf</span>
+                </div>
+              </a>
+            </div>
           </div>
-          <div class="custom-button">
-            <a href="/add-book">
-              <div>
-                <span><i class="fa fa-plus" aria-hidden="true"></i></span>
-                <span>Add to bookshelf</span>
-              </div>
-            </a>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+        {% endif %}
       </div>
-      {% endif %}
       {% if number_of_books > 0 %}
-      <h3><i class="fa fa-address-book-o" aria-hidden="true"></i> Currently reading <a class="all"
-          href="/bookshelf" style="color: black;font-size: 28px;">See all books</a></h3>
+      <h3><i class="fa fa-address-book-o" aria-hidden="true"></i> Currently reading <a class="all" href="/bookshelf"
+          style="color: black;font-size: 28px;">See all books</a></h3>
       <div class="row" style="background-color: white;
       padding: 30px;
       margin-bottom: 50px;
@@ -103,7 +105,7 @@
     justify-content: center;">
 
         {% for book in current_books %}
-        
+
         <div class="col" style="margin-top: 30px; max-width: 266px;">
           <img src="{{book.bookImg}}" alt="Book cover.">
           <h4>{{book.title}}</h4>
@@ -112,12 +114,14 @@
             <div class="horizontal-view">
               <div class="inp-btn">
                 <input type="hidden" name="isbn" value={{book.isbn}}>
-                <input type="text" value="{{book.progress}}" name="page" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2" style="text-align: center;">
+                <input type="text" value="{{book.progress}}" name="page" class="form-control"
+                  aria-label="Recipient's username" aria-describedby="basic-addon2" style="text-align: center;">
               </div>
               <div>
-                <button name="page" type="submit" class="btn btn-primary" style="width: max-content; margin-left: 8px;">Update page count</button>
+                <button name="page" type="submit" class="btn btn-primary"
+                  style="width: max-content; margin-left: 8px;">Update page count</button>
               </div>
-          </div>
+            </div>
           </form>
           <form method="POST">
             <input type="hidden" name="isbn" value={{book.isbn}}>
@@ -126,7 +130,7 @@
             margin: 0 0 10px;">Set book as finished reading</button>
           </form>
           <div class="custom-button">
-            <a target="_blank" href=/viewer class="btn btn-secondary" onclick = "readBook('{{book.isbn}}')">
+            <a target="_blank" href=/viewer class="btn btn-secondary" onclick="readBook('{{book.isbn}}')">
               <div>
                 <span><i class="fa fa-book" aria-hidden="true"></i></span>
                 <span>Read book</span>
@@ -136,10 +140,11 @@
           <div class="custom-button">
             <form action="/remove-current-book" method="POST">
               <input type="hidden" name="isbn" value={{book.isbn}}>
-              <button type="submit" value="Remove from by bookshelf" class="naked-btn"><span><i class="fa fa-minus" aria-hidden="true"></i></span>
+              <button type="submit" value="Remove from by bookshelf" class="naked-btn"><span><i class="fa fa-minus"
+                    aria-hidden="true"></i></span>
                 <span>Delete from bookshelf</span></button>
             </form>
-            
+
           </div>
         </div>
         {% endfor %}

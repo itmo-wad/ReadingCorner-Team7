@@ -37,6 +37,24 @@ $(document).ready(function () {
     outputList.innerHTML = "";
   });
 
+  $("#new-releases").click(function() {
+    console.log("Find new releases")
+    var releaseList = document.getElementById("releases");
+    releaseList.innerHTML = "";
+    var url_name = "https://www.googleapis.com/books/v1/volumes?q=book&orderBy=newest&maxResults=4"
+     $.ajax({
+      url: url_name,
+      dataType: "json",
+      success: function(response) {
+        displayResults(response, releaseList);
+      },
+      error: function () {
+        alert("Something went wrong.. <br>"+"Try again!");
+      }
+    });
+    
+  });
+
   //listener for search button
   $("#search").click(function () {
     outputList.innerHTML = "";
@@ -57,6 +75,8 @@ $(document).ready(function () {
       document.getElementById("quit-search").hidden = false;
       document.getElementById("bookshelf").hidden = true;
        // $.get("https://www.googleapis.com/books/v1/volumes?q="+searchData, getBookData()});
+
+       console.log(name)
        $.ajax({
           url : name ,
           dataType: "json",
@@ -70,7 +90,7 @@ $(document).ready(function () {
               
               $("#title").animate({'margin-top': '5px'}, 1000); //search box animation
               $(".book-list").css("visibility", "visible");
-              displayResults(response); // Appelle la fonction qui afffiche les résultats
+              displayResults(response, outputList); // Appelle la fonction qui afffiche les résultats
               //loadResult(response);
             }
           },
@@ -84,7 +104,7 @@ $(document).ready(function () {
 
 
 
-   function displayResults(response) {
+   function displayResults(response, outputDir) {
       for (var i = 0; i < response.items.length; i+=2) {
         item = response.items[i];
         title1 = item.volumeInfo.title;
@@ -106,7 +126,7 @@ $(document).ready(function () {
         viewability2 = item2.accessInfo.viewability;
         description2 = item2.volumeInfo.description;
         // in production code, item.text should have the HTML entities escaped.
-        outputList.innerHTML += '<div class="row mt-4">' +
+        outputDir.innerHTML += '<div class="row mt-4">' +
                                 formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn, viewability,description) +
                                 formatOutput(bookImg2, title2, author2, publisher2, bookLink2, bookIsbn2, viewability2,description2) +                                
                                 '</div>';

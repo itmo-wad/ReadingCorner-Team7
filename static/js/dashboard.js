@@ -91,7 +91,7 @@ $(document).ready(function () {
         author1 = item.volumeInfo.authors;
         publisher1 = item.volumeInfo.publisher;
         bookLink1 = item.volumeInfo.previewLink;
-        bookIsbn = item.volumeInfo.industryIdentifiers[1].identifier
+        bookIsbn = ((item.volumeInfo.industryIdentifiers.length > 1) ? item.volumeInfo.industryIdentifiers[1].identifier : NaN)
         bookImg1 = (item.volumeInfo.imageLinks) ? item.volumeInfo.imageLinks.thumbnail : placeHldr ;
         viewability = item.accessInfo.viewability;
         description = item.volumeInfo.description;
@@ -101,11 +101,10 @@ $(document).ready(function () {
         author2 = item2.volumeInfo.authors;
         publisher2 = item2.volumeInfo.publisher;
         bookLink2 = item2.volumeInfo.previewLink;
-        bookIsbn2 = item2.volumeInfo.industryIdentifiers[1].identifier
+        bookIsbn2 = ((item2.volumeInfo.industryIdentifiers.length > 1) ? item2.volumeInfo.industryIdentifiers[1].identifier : NaN)
         bookImg2 = (item2.volumeInfo.imageLinks) ? item2.volumeInfo.imageLinks.thumbnail : placeHldr ;
         viewability2 = item2.accessInfo.viewability;
         description2 = item2.volumeInfo.description;
-        //loadResult(bookLink1);
         // in production code, item.text should have the HTML entities escaped.
         outputList.innerHTML += '<div class="row mt-4">' +
                                 formatOutput(bookImg1, title1, author1, publisher1, bookLink1, bookIsbn, viewability,description) +

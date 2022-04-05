@@ -5,6 +5,8 @@
   {% for sheet in stylesheets %}
   <link rel="stylesheet" href="{{sheet}}">
   {% endfor %}
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script src="/static/js/dashboard.js"></script>
   <title>Reading Corner - Bookshelf</title>
 </head>
 
@@ -50,6 +52,7 @@
               object-fit: cover;">
               <input type="hidden" name="isbn" value={{image[1]}}>
               <input type="submit"  value="Remove from by bookshelf" class="btn btn-danger">
+              <a target="_blank" href=/viewer class="btn btn-secondary" onclick = "readBook('{{image[1]}}')">Read Book</a>
             </form>
           {% endfor %}
           <!-- card  -->
@@ -58,5 +61,12 @@
     </div>
   </div>
 </body>
+<footer>
+  <div class="mt-10 bg-light py-4">
+    <div class="container">
+      <p class="text-muted">© 2022 Reading Corner All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 
 </html>

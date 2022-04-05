@@ -20,31 +20,21 @@
         <a class="navbar-brand text-white h1" href="#">Reading Corner</a>
       </div>
       
-      
     </div>
-    <div class="" style="margin: 0 15px;">
-        <!-- <select id="selection-mode">
-          <option value="title">Title</option>
-          <option value="author">Author</option>
-          <option value="subject">Subject</option>
-        </select> -->
-        <select class="form-select form-select-lg" id="selection-mode" style="font-size: 17px;
-        padding: 10px; width: auto;">
+    <div>
+      <button type="submit" id="quit-search" onclick="" hidden><i class="fa fa-times"></i></button>
+    </div>
+    <div style="margin: 0 15px;">
+        <select class="form-select form-select-lg" id="selection-mode" style="font-size: 17px; width: auto;">
           <option value="title">Title</option>
           <option value="author">Author</option>
           <option value="subject">Subject</option>
         </select>
-        <button type="submit" id="quit-search" onclick="" hidden><i class="fa fa-times"></i></button>
       </div>
       <div class="search-bar" style="margin: 0 15px;">
         <input class="form-control" id="search-box" type="text" placeholder="Search" onkeydown="search(this)">
         <button class="btn btn-primary" id="search" type="submit" onclick=''><i class="fa fa-search"></i></button>
       </div>
-
-      <!-- <div class="col-sm-3 search-bar">
-        <input type="text" placeholder="Search" id="search-box" onkeydown="search(this)">
-        <button type="submit" id="search" onclick=''><i class="fa fa-search"></i></button>
-      </div> -->
       <div class="col-sm-1 dropdown">
         <button><i class="fa fa-bars" aria-hidden="true"></i></button>
         <div class="dropdown-content">
@@ -69,7 +59,7 @@
     <div id="bookshelf" style="background-color: #F0FFFF;">
       {% if releases %}
       <h3 style="margin-top: 50px;"><i class="fa fa-bullhorn" aria-hidden="true"></i> New releases <a class="all"
-          href="/dashboard/new-releases" style="color: black; font-size: 28px;">See all new releases</a></h3>
+          href="https://play.google.com/store/books/collection/cluster?clp=sgI2Ci4KKHByb21vdGlvbl8xMDAxY2M2X2FydHNfZW50ZXJ0YWlubWVudF9uZXcQRBgBIgQIBQgs:S:ANO1ljJsjec&gsr=CjmyAjYKLgoocHJvbW90aW9uXzEwMDFjYzZfYXJ0c19lbnRlcnRhaW5tZW50X25ldxBEGAEiBAgFCCw%3D:S:ANO1ljIBXTY&hl=en_US&gl=US" style="color: black; font-size: 28px;">See all new releases</a></h3>
       <div class="row" style="background-color: white; 
       margin-bottom: 50px;
       border: 2mm solid black;
@@ -136,7 +126,7 @@
             margin: 0 0 10px;">Set book as finished reading</button>
           </form>
           <div class="custom-button">
-            <a href="{{book.link}}" target="_blank">
+            <a target="_blank" href=/viewer class="btn btn-secondary" onclick = "readBook('{{book.isbn}}')">
               <div>
                 <span><i class="fa fa-book" aria-hidden="true"></i></span>
                 <span>Read book</span>
@@ -144,7 +134,7 @@
             </a>
           </div>
           <div class="custom-button">
-            <form action="/remove-book" method="POST">
+            <form action="/remove-current-book" method="POST">
               <input type="hidden" name="isbn" value={{book.isbn}}>
               <button type="submit" value="Remove from by bookshelf" class="naked-btn"><span><i class="fa fa-minus" aria-hidden="true"></i></span>
                 <span>Delete from bookshelf</span></button>

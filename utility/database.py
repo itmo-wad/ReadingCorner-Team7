@@ -102,7 +102,5 @@ class readingCornerDatabase:
         self.books.delete_one({'user_id': user_id, 'isbn': int(book_isbn)})
 
 
-
-
 # ONLY instance of class within the app
 readingCornerDb = readingCornerDatabase()

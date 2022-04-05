@@ -1,10 +1,6 @@
 from flask import Flask, Blueprint, redirect, url_for, render_template, request, flash
 from utility.database import readingCornerDb as db
 from utility.wraps import require_login
-from flask_pymongo import PyMongo
-app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/readingcorner"
-mongo = PyMongo(app)
 
 dashboard_page = Blueprint('dashboard_page', __name__, template_folder='templates')
 
@@ -29,7 +25,6 @@ def dashboard():
             flash("Status of book updates to finished.", "success")
 
     current_books = db.get_current_reading_books(request.cookies.get("userID"))
-    print("le current book",current_books)
 
     # TODO Get new releases from API
     new_releases = [{"cover":"/static/img/cover-TEST.jpg", "title":"50 shades of Grey", "author":"Yohann Goher", "link": "https://www.google.fr/books/edition/Blue_Highways/DTk3AQAAQBAJ?hl=en&gbpv=1"},
@@ -40,3 +35,9 @@ def dashboard():
     return render_template('dashboard.html', stylesheets=["https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
         "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css",
         "/static/css/main.css", "/static/css/dashboard.css"], releases=new_releases, current_books=current_books, number_of_books = len(list(db.get_current_reading_books(request.cookies.get("userID")))))
+
+@dashboard_page.route('/remove-current-book', methods=['POST']) 
+@require_login
+def delete_book():
+    db.delete_book_by_isbn_and_user(request.cookies.get("userID"), request.form.get('isbn'))
+    return redirect('dashboard')

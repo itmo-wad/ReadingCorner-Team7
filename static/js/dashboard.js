@@ -37,8 +37,9 @@ $(document).ready(function () {
     outputList.innerHTML = "";
   });
 
+
+  // Listener for new releases
   $("#new-releases").click(function() {
-    console.log("Find new releases")
     var releaseList = document.getElementById("releases");
     releaseList.innerHTML = "";
     var url_name = "https://www.googleapis.com/books/v1/volumes?q=book&orderBy=newest&maxResults=4"

@@ -10,9 +10,27 @@
 </head>
 
 <body>
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #0d6efd !important">
+        <div class="container-fluid">
+          <div>
+            <img class="dashboard" src="/static/img/icone.png" alt="Reading Corner Logo" style="margin-right: 15px;">
+            <a class="navbar-brand text-white h1" href="#">Reading Corner</a>
+          </div>
+          <ul class="navbar-nav" style="margin-top: auto;">
+            <li class="nav-item ">
+              <a class="nav-link active text-white h5" href="/dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active text-white h5" href="/bookshelf">View all books</a>
+            </li>
+          </ul>
+          
+          
+        </div>
+      </nav>
+    <div class="container-profile">
         <div class="text-center">
-            <p>Profile</p>
+            <h2 class="title">Profile</p>
         </div>
         <div>
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -23,24 +41,46 @@
         </div>
         <form action="/profile" method="POST">
             <div>
-                <div class="form-control">
-                    <p>Change username</p>
-                    <input type="text" name="username" value="{{user.username}}">
-                    <button type="submit" name="change-username">Modify username</button>
+                <div class="form-control" style="margin-bottom: 15px; padding: 30px;">
+                    <p class="center-text spacing-item h4">Change username</p>
+                    <div class="pos-item-user">
+                    <p class="">Enter new username</p>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="username" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{user.username}}" style="max-width: fit-content;">
+                        <button class="btn btn-primary" name="change-username" type="submit" style="margin-left: 15px;">Modify</button>                        
+                      </div>
+                    </div>
                 </div>
-                <div class="form-control">
-                    <p>Modify Password</p>
-                    <label for="old_password">Old password</label>
-                    <input type="password" name="old_password">
-                    <label for="new_password">New password</label>
-                    <input type="password" name="new_password">
-                    <label for="confirm_password">Confirm new password</label>
-                    <input type="password" name="confirm_password">
-                    <button type="submit" name="change-password">Modify password</button>
+                <div class="form-control" style="margin-bottom: 15px; padding: 30px;">
+                    <p class="center-text spacing-item h4">Modify Password</p>
+                    <div class="pos-item-pass">
+                        <p for="old_password">Old password</p>
+                        <div class="input-group mb-3">
+                            <input type="password" name="old_password" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="pos-item-pass">
+                        <div class="display-pass">
+                            <div style="margin-right: 15px;">
+                                <p for="new_password">New password</p>
+                                <div class="input-group mb-3">
+                                    <input type="password" name="new_password" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                </div>
+                            </div>
+                            <div style="margin-left: 15px;">
+                                <p for="new_password">Confirm new password</p>
+                                <div class="input-group mb-3">
+                                    <input type="password" name="confirm_password" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary mt-4" type="submit" name="change-password">Modify password</button>
+                    </div>
                 </div>
             </div>
         </form>
-        <a href="/dashboard">Back to dashboard</a>
     </div>
 </body>
 <footer>
@@ -50,5 +90,7 @@
         </div>
     </div>
 </footer>
+
+<!-- label -->
 
 </html>

@@ -4,10 +4,40 @@
 
 body {
     background-color: #F0FFFF;
+    display:flex; 
+    flex-direction:column;
+    height:100vh;
 }
 
 img.dashboard {
     max-width: 100%;
+}
+
+.option-redirection {
+    background-color: white;
+}
+
+.horizontal-view {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+div.inp-btn {
+    margin: 0 0 10px;
+}
+
+.naked-btn {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+footer {
+    margin-top:auto; 
+    /* position: fixed;
+    bottom: 0;
+    width: 100%; */
 }
 
 /* div.dashboard-header {
@@ -122,7 +152,7 @@ div.search-bar::after {
 
 .custom-button i {
     margin-right: 10px;
-    color: blue;
+    /* color: blue; */
 }
 
 .custom-button a {

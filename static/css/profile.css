@@ -1,0 +1,46 @@
+body {
+    background-color: #F0FFFF;
+}
+
+.title {
+    text-align: center;
+    padding: 50px;
+}
+
+.vertical-display {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.display-pass {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.container-profile {
+    width: 600px;
+    position: relative;
+    margin: auto;
+}
+
+.separate-block {
+    margin-bottom: 50px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.spacing-item {
+    margin-bottom: 30px;
+}
+
+.pos-item-user {
+    margin-left: 100px;
+}
+
+.pos-item-pass {
+    margin-left: 30px;
+}

@@ -37,4 +37,4 @@ def profile():
                 return redirect('/disconnect')
 
     return render_template('profile.html', stylesheets=["https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css",
-        "/static/css/main.css"], user=user)
+        "/static/css/main.css", "/static/css/profile.css"], user=user)
